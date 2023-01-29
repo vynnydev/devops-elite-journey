@@ -23,3 +23,14 @@ spec:
             value: "tfk8spg"
           - name: POSTGRES_PASSWORD
             value: "tfk8s#classroom"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pg-classroom
+spec:
+  selector:
+    app: pg-classroom
+  ports:
+  - port: 5432
+  type: ClusterIP

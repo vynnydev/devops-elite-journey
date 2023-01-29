@@ -23,3 +23,14 @@ spec:
             value: "tfk8spg"
           - name: POSTGRES_PASSWORD
             value: "tfk8s#purchases"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pg-purchases
+spec:
+  selector:
+    app: pg-purchases
+  ports:
+  - port: 5432
+  type: ClusterIP

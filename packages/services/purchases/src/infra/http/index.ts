@@ -50,6 +50,6 @@ app.post('/purchases', async (request, response) => {
   }
 })
 
-app.listen(process.env.PORT || 3333, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('[Purchases] Server running');
 });

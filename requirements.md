@@ -57,11 +57,36 @@ kubectl delete pod node_do_pod
 SUBIR O KAFKA COM O NAMESPACE 
 kubectl port-forward nome_do_pod_kafka 9092 -n kafka
 
-resources:
-  limits: 
-    memory: 512
-    cpu: "1"
-  requests:
-    memory: 256
-    cpu: "0.2"
+####################################
+* JENKINS
+Depois da instalação, pegar o ip e adicionar a porta :8080 no final (onde o jenkins estará rodando)
+
+- Para verificar a senha
+ 1 - /var/lib/jenkins/secrets/initialAdminPassword
+ 2 - Install suggested plugins
+ 3 - Criar um usuário com uma senha
+ 4 - Configuração da url: url que está rodando o jenkins
+ 5 - Gerenciar Jenkins
+ 6 - Gerenciar extensões
+  * Plugins (disponíveis): Docker, Docker Pipeline, Kubernetes CLI
+  * Marcar Reiniciar o Jenkins depois da instalação
+ 7 - Desenvolver a Pipeline
+  * Nova Tarefa -> Selecionar Pipeline -> Nome do Projeto 
+  * Definition (Pipeline script from SCM)
+  * Url do repositório GIT, branch (main), script Jenkinsfile
+ 8 - Gerenciar credenciais para o script jenkins
+  * Painel de controle -> Gerenciar Jenkins -> Credentials        -> System -> Global credentials (unrestricted) -> New credentials
+  Kind -> Username with password - Colocar usuário e senha e id (dockerhub "exemplo") e create
+  -> Passar a credencial no script
+ 9 - Adicionar credencias também para o Kube config (Tipo Secret file)
+ 10 - Trigger para a construção e deploy da imagem serem automáticos
+  * Painel de controle -> NomeDoProjeto -> General -> Github hook trigger for GITScm polling -> Salvar
+  * Pegar o endereço do jenkins -> ir em settings do projeto do Github -> Webhooks -> Payload URL -> endereço_do_jenkins/github-webhook/ (Importante ter a barra no final)
+
+* MONITORING
+  kubectl apply -f ./observability&monitoring/deploy-prometheus-grafana.yaml
+
+
+
+
 

@@ -6,14 +6,39 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web-api
+      app: classroom-srv
   template:
     metadata:
       labels:
-        app: web-api
+        app: classroom-srv
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: classroom-api
-        image: tfk8scloud/classroom-srv
+        image: tfk8scloud/classroom-srv:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        env:
+        - name: DB_DATABASE
+          value: "classroom"
+        - name: DB_USERNAME
+          value: "tfk8spg"
+        - name: DB_PASSWORD
+          value: "Pg#123" 
+        - name: DB_HOST
+          value: "tfk8s#classroom"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tfk8s-service
+spec:
+  selector:
+    app: classroom-srv
+  ports:
+    - port: 80
+      protocol: TCP
+  type: ClusterIP

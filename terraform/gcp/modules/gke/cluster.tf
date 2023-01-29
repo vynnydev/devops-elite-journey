@@ -1,6 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
-resource "google_container_cluster" "primary" {
-  name                     = "primary"
+resource "google_container_cluster" "k8s" {
+  name                     = "k8s"
   location                 = "us-central1-a"
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -44,10 +44,10 @@ resource "google_container_cluster" "primary" {
   }
 
   #   Jenkins use case
-  #   master_authorized_networks_config {
-  #     cidr_blocks {
-  #       cidr_block   = "10.0.0.0/18"
-  #       display_name = "private-subnet-w-jenkins"
-  #     }
-  #   }
+  master_authorized_networks_config {
+    cidr_blocks {
+      cidr_block   = "10.0.0.0/18"
+      display_name = "private-subnet-w-jenkins"
+    }
+  }
 }
