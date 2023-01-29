@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-classroom
+spec:
+  selector: 
+    matchLabels:
+      app: pg-classroom
+  template:
+    metadata:
+      labels:
+        app: pg-classroom
+    spec:
+      containers:
+        - name: pg-classroom
+          image: postgres:15.0
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_DB
+            value: "classroom"
+          - name: POSTGRES_USER
+            value: "tfk8spg"
+          - name: POSTGRES_PASSWORD
+            value: "tfk8s#classroom"

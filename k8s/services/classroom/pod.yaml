@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: classroom-api
+  labels:
+    app: web-api
+spec:
+  containers:
+  - name: classroom-api
+    image: tfk8scloud/classroom-srv:latest
+    ports:
+    - containerPort: 80
