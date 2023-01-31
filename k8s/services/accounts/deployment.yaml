@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tfk8s-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounts-srv
+  template:
+    metadata:
+      labels:
+        app: accounts-srv
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: accounts-api
+        image: tfk8scloud/accounts-srv:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_DATABASE
+          value: "dbaccounts"
+        - name: DB_USERNAME
+          value: "pgtfk8s"
+        - name: DB_PASSWORD
+          value: "kurama#pgaccounts" 
+        - name: DB_HOST
+          value: "pgaccounts"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tfk8s-service
+spec:
+  selector:
+    app: accounts-srv
+  ports:
+    - port: 80
+      protocol: TCP
+  type: ClusterIP

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgaccounts
+spec:
+  selector: 
+    matchLabels:
+      app: pgaccounts
+  template:
+    metadata:
+      labels:
+        app: pgaccounts
+    spec:
+      containers:
+        - name: dbaccounts
+          image: postgres:15.0
+          ports:
+            - containerPort: 5432
+          env:
+          - name: POSTGRES_DB
+            value: "dbaccounts"
+          - name: POSTGRES_USER
+            value: "pgtfk8s"
+          - name: POSTGRES_PASSWORD
+            value: "kurama_pgaccounts"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgaccounts
+spec:
+  selector:
+    app: pgaccounts
+  ports:
+  - port: 5432
+  type: ClusterIP
