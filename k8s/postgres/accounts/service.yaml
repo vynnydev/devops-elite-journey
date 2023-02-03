@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgaccounts
+spec:
+  selector:
+    app: pgaccounts
+  ports:
+  - port: 5432
+  type: ClusterIP

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tfk8s-service
+spec:
+  selector:
+    app: accounts-srv
+  ports:
+    - port: 80
+      protocol: TCP
+  type: ClusterIP

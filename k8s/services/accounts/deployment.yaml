@@ -21,24 +21,15 @@ spec:
         image: tfk8scloud/accounts-srv:latest
         ports:
         - containerPort: 8080
-        env:
-        - name: DB_DATABASE
-          value: "dbaccounts"
-        - name: DB_USERNAME
-          value: "pgtfk8s"
-        - name: DB_PASSWORD
-          value: "kurama#pgaccounts" 
-        - name: DB_HOST
-          value: "pgaccounts"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tfk8s-service
-spec:
-  selector:
-    app: accounts-srv
-  ports:
-    - port: 80
-      protocol: TCP
-  type: ClusterIP
+          volumeMounts:
+            - name: accounts-volume
+              mountPath: /home/node/app/.env
+              subPath: .env
+
+      volumes:
+        - name: accounts-volume
+          configMap:
+            name: accounts-config
+            items:
+              - key: env
+                path: .env

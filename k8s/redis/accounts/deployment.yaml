@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgaccounts
+  name: redisaccts
 spec:
   selector: 
     matchLabels:
-      app: pgaccounts
+      app: redisaccts
   template:
     metadata:
       labels:
-        app: pgaccounts
+        app: redisaccts
     spec:
       containers:
-        - name: dbaccounts
-          image: postgres:15.0
+        - name: redis
+          image: 'bitnami/redis'
           ports:
-            - containerPort: 5432
+            - containerPort: 6379
 
       volumes:
-        - name: accounts-volume
+        - name: redis-volume
           configMap:
-            name: postgres-config
+            name: redis-config
             items:
               - key: env
                 path: .env

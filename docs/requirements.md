@@ -25,8 +25,7 @@
 - kubectl describe pod nome_do_pod
 - kubectl port-forward pod/nome_do_pod 4000:80
 
-  COM LOADBALANCER
-  k3d cluster create "80:30000@loadbalancer"k3d create cluster tfk8s -p "80:4000@loadbalancer"
+  COM LOADBALANCER k3d create cluster tfk8s -p "80:30000@loadbalancer"
 
 - KUBERNETES STRUCTURE
   apiVersion:

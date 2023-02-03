@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+data:
+  postgres-config: |
+    DATABASE_HOST=pgaccounts
+    DATABASE_PORT=5432
+    DATABASE_USER=pgtfk8s
+    DATABASE_PASS=kurama_pgaccounts
+    DATABASE_NAME=dbaccounts
+  redis-config: |
+    REDIS_HOST=redisaccts
+    REDIS_PORT=6379
+    REDIS_PASS=
+    REDIS_DB=1

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+data:
+  postgres-config: |
+    POSTGRES_DB=dbaccounts
+    POSTGRES_USER=pgtfk8s
+    POSTGRES_PASSWORD=kurama_pgaccounts

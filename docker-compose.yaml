@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  # Application
+
+  postgres:
+    image: 'bitnami/postgresql'
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=pgtfk8s
+      - POSTGRESQL_PASSWORD=kurama_pgaccounts
+      - POSTGRESQL_DATABASE=dbaccounts
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+
+volumes:
+  postgresql_data:
+    driver: local
